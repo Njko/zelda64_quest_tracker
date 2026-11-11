@@ -115,9 +115,14 @@
         '</span><span class="name">' + esc(p.title) + "</span></button>";
     });
     html += "</div></div>";
-    $("timeline").innerHTML = html;
-    const cur = $("timeline").querySelector(".current");
-    if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: "nearest", inline: "center" });
+    const tl = $("timeline");
+    tl.innerHTML = html;
+    /* Centre l'étape courante en ne faisant défiler que la frise, jamais la page. */
+    const cur = tl.querySelector(".current");
+    if (cur) {
+      const a = cur.getBoundingClientRect(), b = tl.getBoundingClientRect();
+      tl.scrollLeft += a.left + a.width / 2 - (b.left + b.width / 2);
+    }
   }
 
   function questCard(q) {
@@ -287,14 +292,21 @@
       "</div>";
   }
 
+  let shownPhase = -1;
+
   function render() {
+    const y = window.scrollY;
     renderHeader();
-    renderTimeline();
+    if (shownPhase !== state.phase) {
+      renderTimeline();
+      shownPhase = state.phase;
+    }
     document.querySelectorAll(".tabs [role=tab]").forEach((b) => b.setAttribute("aria-selected", b.dataset.view === state.view));
-    if (state.view !== "all") $("view").innerHTML = "";
     if (state.view === "now") renderNow();
     else if (state.view === "all") renderAll();
     else renderCollect();
+    /* Le contenu vient d'être reconstruit : on garde la position de lecture. */
+    if (window.scrollY !== y) window.scrollTo(0, y);
   }
 
   function commit() {
