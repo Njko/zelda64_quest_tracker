@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carnet de quêtes — Ocarina of Time</title>
+  <meta name="description" content="Suivi des quêtes de Zelda: Ocarina of Time : conditions, étapes et meilleur moment pour chaque quête. Progression enregistrée dans le navigateur.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <div class="brand">
+        <svg class="crest" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 29 27H3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9.5 15h13L16 27z" fill="currentColor"/></svg>
+        <div>
+          <h1>Carnet de quêtes</h1>
+          <p class="sub">Ocarina of Time · suivi non officiel</p>
+        </div>
+      </div>
+      <div class="overall" aria-live="polite">
+        <div class="overall-label"><span id="overall-count"></span> quêtes terminées</div>
+        <div class="bar"><div class="bar-fill" id="overall-bar"></div></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="where wrap" aria-labelledby="where-title">
+    <h2 id="where-title">Où en es-tu dans l'histoire ?</h2>
+    <div class="timeline" id="timeline" role="radiogroup" aria-labelledby="where-title"></div>
+  </section>
+
+  <nav class="tabs wrap" role="tablist" aria-label="Vues">
+    <button role="tab" data-view="now" aria-selected="true">Maintenant</button>
+    <button role="tab" data-view="all" aria-selected="false">Toutes les quêtes</button>
+    <button role="tab" data-view="collect" aria-selected="false">Collections</button>
+  </nav>
+
+  <main class="wrap" id="view"></main>
+
+  <footer class="foot wrap">
+    <div class="foot-actions">
+      <button type="button" id="btn-export">Exporter ma progression</button>
+      <button type="button" id="btn-import">Importer</button>
+      <input type="file" id="file-import" accept="application/json" hidden>
+      <button type="button" id="btn-reset" class="danger">Tout réinitialiser</button>
+    </div>
+    <p id="storage-note">Ta progression est enregistrée dans ce navigateur (stockage local). Elle n'est envoyée nulle part.</p>
+    <p>Site de fans non officiel. The Legend of Zelda est une marque de Nintendo.</p>
+  </footer>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
